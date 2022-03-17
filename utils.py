@@ -216,7 +216,7 @@ def summarize_result(config, fold, y_true, y_pred):
     overall_dt = SingleTable(overall_data, colored('OVERALL RESULT', 'red'))
     perclass_dt = SingleTable(perclass_data, colored('PER-CLASS RESULT', 'red'))
     
-    print('[INFO] Summary at fold {}\n'.format(fold))
+    print('[INFO] Evaluation result from fold 1 to {}\n'.format(fold))
     print(overall_dt.table + '\n')
     print(perclass_dt.table + '\n')
     
