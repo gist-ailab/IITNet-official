@@ -18,7 +18,7 @@ class EEGDataLoader(Dataset):
         self.target_idx = config['target_idx']
         self.signal_type = config['signal_type']
         self.n_splits = config['n_splits']
-
+        
         self.dataset_path = os.path.join('./datasets', self.dataset)
         self.inputs, self.labels, self.epochs = self.split_dataset()
         
@@ -46,7 +46,7 @@ class EEGDataLoader(Dataset):
         data_root = os.path.join(self.dataset_path, self.signal_type)
         data_fname_list = sorted(os.listdir(data_root))
         data_fname_dict = {'train': [], 'test': [], 'val': []}
-        split_idx_list = np.load('idx_{}.npy'.format(self.dataset))
+        split_idx_list = np.load(os.path.join('./split_idx', 'idx_{}.npy'.format(self.dataset)))
         
         assert len(split_idx_list) == self.n_splits
         

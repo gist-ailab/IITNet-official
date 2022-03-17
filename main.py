@@ -79,7 +79,6 @@ class OneFoldTrainer:
 
             progress_bar(i, len(self.loader_dict['train']), 'Lr: %.4e | Loss: %.3f | Acc: %.3f%% (%d/%d)'
                     % (get_lr(self.optimizer), train_loss / (i + 1), 100. * correct / total, correct, total))
-            break
             
     @torch.no_grad()
     def evaluate(self, mode):
@@ -119,7 +118,6 @@ class OneFoldTrainer:
             self.train_one_epoch(epoch)
             val_acc, val_loss = self.evaluate(mode='val')
             self.early_stopping(val_acc, val_loss, self.model)
-            break
             if self.early_stopping.early_stop:
                 break
         
@@ -146,7 +144,7 @@ def main():
     # For reproducibility
     set_random_seed(args.seed, use_cuda=True)
 
-    with open('config/' + args.config + '.json') as config_file:
+    with open('configs/' + args.config + '.json') as config_file:
         config = json.load(config_file)
     config['config_name'] = os.path.basename(args.config)
 
