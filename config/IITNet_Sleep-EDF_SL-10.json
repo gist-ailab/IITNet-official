@@ -1,0 +1,22 @@
+{
+    "max_epochs": 500,
+    "backbone": "XSleepNet",
+    "classifier_type": "Transformer",
+    "dataset": "Sleep-EDF",
+    "seq_len": 1,
+    "target_idx": -1,
+    "signal_type": "Fpz-Cz",
+    "n_splits": 20,
+
+    "hidden_dim": 128,
+    "batch_size": 256,
+    "patience": 10,
+    "num_layers": 50,
+    "dropout_rate": 0.5,
+    "num_classes": 5,
+    "init_weights": false,
+    "early_stopping_mode": "min",
+    "bidirectional": true,
+    "learning_rate": 0.005,
+    "weight_decay": 0.000001
+}
