@@ -19,8 +19,7 @@ class EEGDataLoader(Dataset):
         self.signal_type = config['signal_type']
         self.n_splits = config['n_splits']
 
-        self.root_dir = '../../'
-        self.dataset_path = os.path.join(self.root_dir, 'dset', self.dataset, 'npz')
+        self.dataset_path = os.path.join('./datasets', self.dataset)
         self.inputs, self.labels, self.epochs = self.split_dataset()
         
     def __len__(self):

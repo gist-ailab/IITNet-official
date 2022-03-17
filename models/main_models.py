@@ -12,11 +12,7 @@ class MainModel(nn.Module):
         super(MainModel, self).__init__()
 
         self.config = config
-        self.hidden_dim = config['hidden_dim']
-        self.classifier_type = config['classifier_type']
-        
         self.feature = ResNetFeature(config)
-        self.dropout = nn.Dropout(p=0.5)
         self.classifier = PlainLSTM(config, hidden_dim=config['hidden_dim'], num_classes=config['num_classes'])
 
     def forward(self, x):
@@ -39,7 +35,7 @@ class PlainLSTM(nn.Module):
         # architecture
         self.lstm = nn.LSTM(self.input_dim, self.hidden_dim, batch_first=True, num_layers=self.num_layers, bidirectional=config['bidirectional'])
         self.fc = nn.Linear(self.hidden_dim * 2, self.num_classes)
-        
+
     def init_hidden(self, x):
         h0 = torch.zeros((self.num_layers * (2 if self.bidirectional else 1), x.size(0), self.hidden_dim)).cuda()
         c0 = torch.zeros((self.num_layers * (2 if self.bidirectional else 1), x.size(0), self.hidden_dim)).cuda()

@@ -36,10 +36,23 @@ datasets
         └── SC4192E0.npz
 ```
 
-## Training ##
-
+## How to Train and Evaluate ##
+You can simply train and evaluate IITNet using just ```main.py```.
 ```
-$ python main.py --config config_name --gpu gpu_ids
+$ python main.py --config $CONFIG_NAME --gpu GPU
+```
+### Example Commands ###
+* Train and Evaluation Command on MASS (L=10)
+```
+$ python main.py --config IITNet_MASS_SL-10
+```
+* Train and Evaluation Command on SHHS (L=10)
+```
+$ python main.py --config IITNet_SHHS_SL-10
+```
+* Train and Evaluation Command on Sleep-EDF (L=10)
+```
+$ python main.py --config IITNet_Sleep-EDF_SL-10
 ```
 
 

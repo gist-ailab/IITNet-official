@@ -6,6 +6,8 @@ import torch
 import random
 import numpy as np
 import sklearn.metrics as skmet
+from terminaltables import SingleTable
+from termcolor import colored
 
 
 _, term_width = os.popen('stty size', 'r').read().split()
@@ -167,22 +169,57 @@ class EarlyStopping:
         torch.save(model.state_dict(), os.path.join(self.ckpt_path, self.ckpt_name))
         self.init_metric = val_metric
 
-
-def summarize_result(config, fold, y_true, y_pred, phase=None):
+def summarize_result(config, fold, y_true, y_pred):
     os.makedirs('results', exist_ok=True)
     y_pred_argmax = np.argmax(y_pred, 1)
-    result_summary = skmet.classification_report(y_true, y_pred_argmax, digits=4)
     result_dict = skmet.classification_report(y_true, y_pred_argmax, digits=3, output_dict=True)
-    confusion_matrix = skmet.confusion_matrix(y_true, y_pred_argmax)
-    kappa = skmet.cohen_kappa_score(y_true, y_pred_argmax)
-    if phase is None:
-        print('[INFO] Summary at fold {}'.format(fold))
-    else:
-        print('[INFO] Summary at fold {}, phase {}'.format(fold, phase))
-    print(result_summary)
-    print('Kappa: ', kappa)
-    print('Confusion Matrix: ')
-    print(confusion_matrix, '\n')
+    cm = skmet.confusion_matrix(y_true, y_pred_argmax)
+    
+    accuracy = round(result_dict['accuracy']*100, 1)
+    macro_f1 = round(result_dict['macro avg']['f1-score']*100, 1)
+    kappa = round(skmet.cohen_kappa_score(y_true, y_pred_argmax), 3)
+    
+    wpr = round(result_dict['0.0']['precision']*100, 1)
+    wre = round(result_dict['0.0']['recall']*100, 1)
+    wf1 = round(result_dict['0.0']['f1-score']*100, 1)
+    
+    n1pr = round(result_dict['1.0']['precision']*100, 1)
+    n1re = round(result_dict['1.0']['recall']*100, 1)
+    n1f1 = round(result_dict['1.0']['f1-score']*100, 1)
+
+    n2pr = round(result_dict['2.0']['precision']*100, 1)
+    n2re = round(result_dict['2.0']['recall']*100, 1)
+    n2f1 = round(result_dict['2.0']['f1-score']*100, 1)
+    
+    n3pr = round(result_dict['3.0']['precision']*100, 1)
+    n3re = round(result_dict['3.0']['recall']*100, 1)
+    n3f1 = round(result_dict['3.0']['f1-score']*100, 1)
+    
+    rpr = round(result_dict['4.0']['precision']*100, 1)
+    rre = round(result_dict['4.0']['recall']*100, 1)
+    rf1 = round(result_dict['4.0']['f1-score']*100, 1)
+    
+    overall_data = [
+        ['ACC', 'MF1', '\u03BA'],
+        [accuracy, macro_f1, kappa],
+    ]
+    
+    perclass_data = [
+        ['', 'W', 'N1', 'N2', 'N3', 'R', 'PR', 'RE', 'F1'],
+        ['W', cm[0][0], cm[0][1], cm[0][2], cm[0][3], cm[0][4], wpr, wre, wf1],
+        ['N1', cm[1][0], cm[1][1], cm[1][2], cm[1][3], cm[1][4], n1pr, n1re, n1f1],
+        ['N2', cm[2][0], cm[2][1], cm[2][2], cm[2][3], cm[2][4], n2pr, n2re, n2f1],
+        ['N3', cm[3][0], cm[3][1], cm[3][2], cm[3][3], cm[3][4], n3pr, n3re, n3f1],
+        ['R', cm[4][0], cm[4][1], cm[4][2], cm[4][3], cm[4][4], rpr, rre, rf1],
+    ]
+    
+    overall_dt = SingleTable(overall_data, colored('OVERALL RESULT', 'red'))
+    perclass_dt = SingleTable(perclass_data, colored('PER-CLASS RESULT', 'red'))
+    
+    print('[INFO] Summary at fold {}\n'.format(fold))
+    print(overall_dt.table + '\n')
+    print(perclass_dt.table + '\n')
+    
     with open(os.path.join('results', config['config_name'] + '.txt'), 'w') as f:
         f.write(
             str(fold) + ' ' +
