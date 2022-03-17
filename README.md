@@ -10,15 +10,41 @@ The architecture of IITNet:
 ![Model Architecture](./figures/IITNet.png)
 
 ## Environment ##
----
-
+* Python >=3.5.0
+* PyTorch >= 0.4.0
+* NumPy
+* 
 
 ## Dataset Preparation ##
----
+Download MASS, SHHS, Sleep-EDF and preprocess the edf file using the preprocessing file into NPZ file. The following structure
+```
+datasets
+├── MASS
+│   └── F4-EOG
+│       ├── 01-03-0001-PSG.npz
+│       ├── ...
+│       └── 01-03-0064-PSG.npz
+├── SHHS
+│   └── C4-A1
+│       ├── shhs1-200001.npz
+│       ├── ...
+│       └── shhs1-205804.npz
+└── Sleep-EDF
+    └── Fpz-Cz
+        ├── SC4001E0.npz
+        ├── ...
+        └── SC4192E0.npz
+```
+
+## Training ##
+
+```
+$ python main.py --config config_name --gpu gpu_ids
+```
+
 
 ## Citation ##
----
-If you find this useful, please cite our work as follows:
+If you find this project useful, we would be grateful if you cite our work as follows:
 
     @article{seo2020intra,
     title={Intra-and inter-epoch temporal context network (IITNet) using sub-epoch features for automatic sleep scoring on raw single-channel EEG},
@@ -30,5 +56,9 @@ If you find this useful, please cite our work as follows:
     publisher={Elsevier}
     }
 
+## Acknowledgement ##
+This work was supported by the Institute of Integrated Technology (IIT) Research Project through a grant provided by Gwangju Institute of Science and Technology (GIST) in 2019 (Project Code:
+GK11470).
+
 ## Licence ##
----
+* 

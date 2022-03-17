@@ -1,7 +1,5 @@
 import os
 import json
-import time
-import random
 import argparse
 import warnings
 import matplotlib
@@ -11,7 +9,6 @@ import sklearn.metrics as skmet
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import torch.cuda.amp as amp
 
 from torch.utils.data import DataLoader
 from utils import *
@@ -149,6 +146,7 @@ def main():
 
     with open('config/' + args.config + '.json') as config_file:
         config = json.load(config_file)
+    config['config_name'] = os.path.basename(args.config)
 
     Y_true = np.zeros(0)
     Y_pred = np.zeros((0, config['num_classes']))
