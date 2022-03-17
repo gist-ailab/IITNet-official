@@ -7,6 +7,7 @@ This repo is the official implementation of "***Intra- and Inter-epoch Temporal 
 This work has been accepted for publication in [Biomedical Signal Processing and Control](https://www.journals.elsevier.com/biomedical-signal-processing-and-control).
 
 The architecture of IITNet:
+![Model Architecture](./figures/IITNet.png)
 
 ## Environment ##
 ---
