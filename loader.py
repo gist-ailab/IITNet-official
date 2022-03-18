@@ -46,7 +46,7 @@ class EEGDataLoader(Dataset):
         data_root = os.path.join(self.dataset_path, self.signal_type)
         data_fname_list = sorted(os.listdir(data_root))
         data_fname_dict = {'train': [], 'test': [], 'val': []}
-        split_idx_list = np.load(os.path.join('./split_idx', 'idx_{}.npy'.format(self.dataset)))
+        split_idx_list = np.load(os.path.join('./split_idx', 'idx_{}.npy'.format(self.dataset)), allow_pickle=True)
         
         assert len(split_idx_list) == self.n_splits
         
@@ -64,8 +64,6 @@ class EEGDataLoader(Dataset):
             for i in range(len(data_fname_list)):
                 if i in split_idx_list[self.fold - 1][self.mode]:
                     data_fname_dict[self.mode].append(data_fname_list[i])
-                else:
-                    raise NotImplementedError("idx '{}' does not exist in split idx list".format(i))
             
         else:
             raise NameError("dataset '{}' cannot be found.".format(self.dataset))

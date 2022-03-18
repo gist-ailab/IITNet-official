@@ -10,10 +10,19 @@ The architecture of IITNet:
 ![Model Architecture](./figures/IITNet.png)
 
 ## Environment ##
-* Python >=3.5.0
-* PyTorch >= 0.4.0
-* NumPy
-* 
+* python >=3.7.0
+* pytorch >= 1.7.0 (or compatible version to your develop env)
+* numpy
+* scikit-learn
+* terminaltables
+* termcolor
+
+1. Install PyTorch with compatible version to your develop env from [PyTorch official website](https://pytorch.org/).
+2. Install remaining libraries using the following command.
+    ```
+    pip install -r requirements.txt
+    ```
+
 
 ## Dataset Preparation ##
 Download MASS, SHHS, Sleep-EDF and preprocess the edf file using the preprocessing file into NPZ file. The following structure

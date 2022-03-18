@@ -2,7 +2,6 @@ import os
 import json
 import argparse
 import warnings
-import matplotlib
 import numpy as np
 import sklearn.metrics as skmet
 
@@ -15,6 +14,8 @@ from utils import *
 from models.main_models import *
 from loader import EEGDataLoader
 
+os.environ["OMP_NUM_THREADS"] = "1" 
+os.environ["MKL_NUM_THREADS"] = "1" 
 
 class OneFoldTrainer:
     def __init__(self, args, fold, config):
@@ -42,7 +43,7 @@ class OneFoldTrainer:
         print('[INFO] Number of params of model: ', sum(p.numel() for p in model.parameters() if p.requires_grad))
         model = torch.nn.DataParallel(model, device_ids=list(range(len(self.args.gpu.split(",")))))
         model.to(self.device)
-        print('[INFO] Model prepared, Device used: {} GPU:{}'.format(self.device, self.args.gpu))
+        print('[INFO] Model prepared, Device used: {}, GPU:{}'.format(self.device, self.args.gpu))
 
         return model
     
@@ -77,8 +78,8 @@ class OneFoldTrainer:
             predicted = torch.argmax(outputs, 1)
             correct += predicted.eq(labels).sum().item()
 
-            progress_bar(i, len(self.loader_dict['train']), 'Lr: %.4e | Loss: %.3f | Acc: %.3f%% (%d/%d)'
-                    % (get_lr(self.optimizer), train_loss / (i + 1), 100. * correct / total, correct, total))
+            progress_bar(i, len(self.loader_dict['train']), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
+                    % (train_loss / (i + 1), 100. * correct / total, correct, total))
             
     @torch.no_grad()
     def evaluate(self, mode):
@@ -102,8 +103,8 @@ class OneFoldTrainer:
             y_true = np.concatenate([y_true, labels.cpu().numpy()])
             y_pred = np.concatenate([y_pred, outputs.cpu().numpy()])
 
-            progress_bar(i, len(self.loader_dict[mode]), 'Lr: %.4e | Loss: %.3f | Acc: %.3f%% (%d/%d)'
-                    % (get_lr(self.optimizer), eval_loss / (i + 1), 100. * correct / total, correct, total))
+            progress_bar(i, len(self.loader_dict[mode]), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
+                    % (eval_loss / (i + 1), 100. * correct / total, correct, total))
 
         if mode == 'val':
             return 100. * correct / total, eval_loss
@@ -128,7 +129,6 @@ class OneFoldTrainer:
         return y_true, y_pred
 
 def main():
-    warnings.filterwarnings("ignore", category=matplotlib.cbook.mplDeprecation)
     warnings.filterwarnings("ignore", category=DeprecationWarning) 
     warnings.filterwarnings("ignore", category=UserWarning) 
 
