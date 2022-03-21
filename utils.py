@@ -205,7 +205,7 @@ def summarize_result(config, fold, y_true, y_pred):
     ]
     
     perclass_data = [
-        ['', 'W', 'N1', 'N2', 'N3', 'R', 'PR', 'RE', 'F1'],
+        [colored('A', 'cyan') + '\\' + colored('P', 'green'), 'W', 'N1', 'N2', 'N3', 'R', 'PR', 'RE', 'F1'],
         ['W', cm[0][0], cm[0][1], cm[0][2], cm[0][3], cm[0][4], wpr, wre, wf1],
         ['N1', cm[1][0], cm[1][1], cm[1][2], cm[1][3], cm[1][4], n1pr, n1re, n1f1],
         ['N2', cm[2][0], cm[2][1], cm[2][2], cm[2][3], cm[2][4], n2pr, n2re, n2f1],
@@ -218,7 +218,9 @@ def summarize_result(config, fold, y_true, y_pred):
     
     print('[INFO] Evaluation result from fold 1 to {}\n'.format(fold))
     print(overall_dt.table + '\n')
-    print(perclass_dt.table + '\n\n')
+    print(perclass_dt.table)
+    print(colored(' A', 'cyan') + ': Actual Clas, ' + colored('P', 'green') + ': Predicted Class' + '\n\n')
+    
     
     with open(os.path.join('results', config['config_name'] + '.txt'), 'w') as f:
         f.write(
