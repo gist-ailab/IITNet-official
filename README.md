@@ -11,7 +11,7 @@ The architecture of IITNet:
 
 ## Updates & TODO Lists
 - [X] (2022.03.22) IITNet official repository is released.
-- [ ] (2022.0X.XX) DeepSleepNet baseline is added.
+- [ ] (2022.0X.XX) DeepSleepNet [1] baseline is added.
 
 ## Getting Started
 ### Environment 
@@ -123,7 +123,6 @@ GK11470).
 ## Reference ##
 ```
 [1] A. Supratak, H. Dong, C. Wu, and Y. Guo, “DeepSleepNet: A model for automatic sleep stage scoring based on raw single-channel EEG,” IEEE Trans. Neural Syst. Rehabil. Eng., vol. 25, no. 11, pp. 1998–2008, 2017.
-[2] S. Back et al., “Unseen Object Amodal Instance Segmentation via Hierarchical Occlusion Modeling,” CoRR, vol. abs/2109.11103, 2021, [Online]. Available: https://arxiv.org/abs/2109.11103.
 ```
 
 ## Licence ##
