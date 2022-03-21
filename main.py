@@ -14,8 +14,6 @@ from utils import *
 from models.main_models import *
 from loader import EEGDataLoader
 
-os.environ["OMP_NUM_THREADS"] = "1" 
-os.environ["MKL_NUM_THREADS"] = "1" 
 
 class OneFoldTrainer:
     def __init__(self, args, fold, config):
@@ -26,7 +24,7 @@ class OneFoldTrainer:
         print('[INFO] Config name: {}'.format(os.path.basename(args.config)))
 
         self.criterion = nn.CrossEntropyLoss()
-        self.ckpt_path = os.path.join('checkpoints', os.path.basename(args.config))
+        self.ckpt_path = os.path.join('checkpoints', self.config['config_name'])
         self.ckpt_name = 'ckpt_fold-{0:02d}.pth'.format(self.fold)
         self.early_stopping = EarlyStopping(patience=config['patience'], verbose=True, ckpt_path=self.ckpt_path, ckpt_name=self.ckpt_name, mode=self.config['early_stopping_mode'])
         
