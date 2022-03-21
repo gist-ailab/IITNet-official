@@ -243,22 +243,3 @@ def set_random_seed(seed_value, use_cuda=True):
         torch.cuda.manual_seed_all(seed_value) # gpu vars
         torch.backends.cudnn.deterministic = True  #needed
         torch.backends.cudnn.benchmark = False
-
-
-def adjust_learning_rate(lr, lr_decay_rate, optimizer, epoch):
-    eta_min = lr * (lr_decay_rate ** 3)
-    lr = eta_min + (lr - eta_min) * (
-            1 + math.cos(math.pi * epoch / 1000)) / 2
-
-    for param_group in optimizer.param_groups:
-        param_group['lr'] = lr
-
-
-def warmup_learning_rate(args, epoch, batch_id, total_batches, optimizer):
-    if epoch <= args.warm_epochs:
-        p = (batch_id + (epoch - 1) * total_batches) / \
-            (args.warm_epochs * total_batches)
-        lr = args.warmup_from + p * (args.warmup_to - args.warmup_from)
-
-        for param_group in optimizer.param_groups:
-            param_group['lr'] = lr

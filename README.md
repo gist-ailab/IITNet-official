@@ -9,7 +9,12 @@ This work has been accepted for publication in [Biomedical Signal Processing and
 The architecture of IITNet:
 ![Model Architecture](./figures/IITNet.png)
 
-## Environment ##
+## Updates & TODO Lists
+- [X] (2022.03.22) IITNet official repository is released.
+- [ ] (2022.0X.XX) DeepSleepNet baseline is added.
+
+## Getting Started
+### Environment 
 * python >=3.7.0
 * pytorch >= 1.7.0 (or compatible version to your develop env)
 * numpy
@@ -26,7 +31,7 @@ The architecture of IITNet:
     ```
 
 
-## Dataset Preparation ##
+### Data Preparation
 We evaluated our IITNet with MASS, SHHS, and Sleep-EDF dataset. You have to convert dataset from ```.edf``` into ```.npz``` format.
 
 First, download ```.edf``` files and annotations MASS, SHHS, [Sleep-EDF](https://archive.physionet.org/physiobank/database/sleep-edfx/). For the MASS and SHHS dataset, you have to request for a permission to access their dataset.
@@ -66,7 +71,7 @@ After preprocessing, the hierarchy of ```./datasets/``` directory will be the fo
 
 Each ```.npz``` file contains input eeg epochs with the shape of ```(total_num_epochs, 30 * sampling_rate)``` and target labels with the shape of ```(total_num_epochs)``` with the key ```'x'``` and ```'y'```, respectively.
 
-## How to Train and Evaluate ##
+## Train & Evaluation
 You can simply train and evaluate IITNet using just ```main.py```.
 ```
 $ python main.py --config $CONFIG_PATH --gpu $GPU_IDs
@@ -89,7 +94,10 @@ $ python main.py --config ./configs/IITNet_Sleep-EDF_SL-10.json --gpu 1,2
 $ python main.py --config ./configs/IITNet_SHHS_SL-10.json --gpu 3 --test-only
 ```
 
-## Results ##
+### Outputs ###
+* For each fold, checkpoints that have the best validation loss are saved at ```./checkpoints/CONFIG_NAME/```.
+* Overall result is written in ```./results/CONFIG_NAME.txt``` with the format of ```FOLD ACC MF1 KAPPA W-F1 N1-F1 N2-F1 N3-F1 REM-F1```.
+* Overall and per-class results are printed like the following figures:
 
 
 
@@ -112,7 +120,10 @@ This work was supported by the Institute of Integrated Technology (IIT) Research
 GK11470).
 
 ## Reference ##
-
+```
+[1] A. Supratak, H. Dong, C. Wu, and Y. Guo, “DeepSleepNet: A model for automatic sleep stage scoring based on raw single-channel EEG,” IEEE Trans. Neural Syst. Rehabil. Eng., vol. 25, no. 11, pp. 1998–2008, 2017.
+[2] S. Back et al., “Unseen Object Amodal Instance Segmentation via Hierarchical Occlusion Modeling,” CoRR, vol. abs/2109.11103, 2021, [Online]. Available: https://arxiv.org/abs/2109.11103.
+```
 
 ## Licence ##
 MIT licence
