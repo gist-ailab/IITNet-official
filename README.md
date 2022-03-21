@@ -96,7 +96,7 @@ $ python main.py --config ./configs/IITNet_SHHS_SL-10.json --gpu 3 --test-only
 
 ### Outputs ###
 * For each fold, checkpoints that have the best validation loss are saved at ```./checkpoints/CONFIG_NAME/```.
-* Overall result is written in ```./results/CONFIG_NAME.txt``` with the format of ```FOLD ACC MF1 KAPPA W-F1 N1-F1 N2-F1 N3-F1 REM-F1```.
+* Overall result is written in ```./results/CONFIG_NAME.txt``` with the order of ```FOLD ACC MF1 KAPPA W-F1 N1-F1 N2-F1 N3-F1 REM-F1```.
 * Overall and per-class results are printed like the following figures:
 
 
