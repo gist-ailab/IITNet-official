@@ -11,13 +11,13 @@ class EEGDataLoader(Dataset):
         self.mode = mode
         self.fold = fold
 
-        self.sr = 100
         self.config = config
         self.dataset = config['dataset']
         self.seq_len = config['seq_len']
+        self.n_splits = config['n_splits']
         self.target_idx = config['target_idx']
         self.signal_type = config['signal_type']
-        self.n_splits = config['n_splits']
+        self.sampling_rate = config['sampling_rate']
         
         self.dataset_path = os.path.join('./datasets', self.dataset)
         self.inputs, self.labels, self.epochs = self.split_dataset()
@@ -26,7 +26,7 @@ class EEGDataLoader(Dataset):
         return len(self.epochs)
 
     def __getitem__(self, idx):
-        n_sample = 30 * self.sr * self.seq_len
+        n_sample = 30 * self.sampling_rate * self.seq_len
         file_idx, idx, seq_len = self.epochs[idx]
         inputs = self.inputs[file_idx][idx:idx+seq_len]
 

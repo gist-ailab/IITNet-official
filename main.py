@@ -33,7 +33,6 @@ class OneFoldTrainer:
         self.dataset_args = {'config': self.config, 'fold': self.fold}
         self.dataloader_args = {'batch_size': self.config['batch_size'], 'num_workers': 4*len(self.args.gpu.split(","))}
 
-        self.train_iter = 0
         self.model = self.build_model()
         self.loader_dict = self.build_dataloader()
         self.optimizer = optim.Adam(self.model.parameters(), lr=config['learning_rate'], weight_decay=config['weight_decay'])
@@ -114,13 +113,14 @@ class OneFoldTrainer:
             raise NotImplementedError
     
     def run(self):
-        for epoch in range(self.config['max_epochs']):
-            print('\n[INFO] Fold: {}, Epoch: {}'.format(self.fold, epoch))
-            self.train_one_epoch(epoch)
-            val_acc, val_loss = self.evaluate(mode='val')
-            self.early_stopping(val_acc, val_loss, self.model)
-            if self.early_stopping.early_stop:
-                break
+        if not self.args.test_only:
+            for epoch in range(self.config['max_epochs']):
+                print('\n[INFO] Fold: {}, Epoch: {}'.format(self.fold, epoch))
+                self.train_one_epoch(epoch)
+                val_acc, val_loss = self.evaluate(mode='val')
+                self.early_stopping(val_acc, val_loss, self.model)
+                if self.early_stopping.early_stop:
+                    break
         
         self.model.load_state_dict(torch.load(os.path.join(self.ckpt_path, self.ckpt_name)))
         y_true, y_pred = self.evaluate(mode='test')
@@ -134,8 +134,10 @@ def main():
 
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--seed', type=int, default=42, help='random seed')
-    parser.add_argument('--gpu', type=str, default="0", help='gpu id')
+    parser.add_argument('--gpu', type=str, default="0", help='gpu id(s)')
     parser.add_argument('--config', type=str, default="IITNetV2", help='.json')
+    parser.add_argument('--test-only', action='store_true', help='if true, only evaluation is conducted')
+    
     args = parser.parse_args()
 
     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"   
@@ -144,9 +146,9 @@ def main():
     # For reproducibility
     set_random_seed(args.seed, use_cuda=True)
 
-    with open('configs/' + args.config + '.json') as config_file:
+    with open(args.config) as config_file:
         config = json.load(config_file)
-    config['config_name'] = os.path.basename(args.config)
+    config['config_name'] = os.path.basename(args.config).replace('.json', '')
 
     Y_true = np.zeros(0)
     Y_pred = np.zeros((0, config['num_classes']))

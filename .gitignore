@@ -133,3 +133,5 @@ checkpoints/
 *.pt
 *.pth
 *.npz
+*.edf
+results/
