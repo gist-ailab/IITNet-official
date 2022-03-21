@@ -2,7 +2,9 @@
 
 By *Hogeon Seo, *Seunghyeok Back, *Seongju Lee, Deokhwan Park, Tae Kim, and Kyoobin Lee (\*: Equal Contribution)
 
-This repo is the official implementation of "***Intra- and Inter-epoch Temporal Context Network (IITNet) using Sub-epoch Features for Automatic Sleep Scoring on Raw Single-channel EEG***", Biomedical Signal Processing and Control 61 (2020): 102037. [[paper]](https://www.sciencedirect.com/science/article/pii/S1746809420301932) [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/intra-and-inter-epoch-temporal-context/sleep-stage-detection-on-mass-ss2)](https://paperswithcode.com/sota/sleep-stage-detection-on-mass-ss2?p=intra-and-inter-epoch-temporal-context) [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/intra-and-inter-epoch-temporal-context/sleep-stage-detection-on-sleep-edf)](https://paperswithcode.com/sota/sleep-stage-detection-on-sleep-edf?p=intra-and-inter-epoch-temporal-context)
+This repo is the official implementation of "***Intra- and Inter-epoch Temporal Context Network (IITNet) using Sub-epoch Features for Automatic Sleep Scoring on Raw Single-channel EEG***", Biomedical Signal Processing and Control 61 (2020): 102037. [[paper]](https://www.sciencedirect.com/science/article/pii/S1746809420301932) 
+
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/intra-and-inter-epoch-temporal-context/sleep-stage-detection-on-mass-ss2)](https://paperswithcode.com/sota/sleep-stage-detection-on-mass-ss2?p=intra-and-inter-epoch-temporal-context) [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/intra-and-inter-epoch-temporal-context/sleep-stage-detection-on-sleep-edf)](https://paperswithcode.com/sota/sleep-stage-detection-on-sleep-edf?p=intra-and-inter-epoch-temporal-context)
 
 The architecture of IITNet:
 ![Model Architecture](./figures/IITNet.png)
