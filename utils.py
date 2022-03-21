@@ -219,7 +219,7 @@ def summarize_result(config, fold, y_true, y_pred):
     print('[INFO] Evaluation result from fold 1 to {}\n'.format(fold))
     print(overall_dt.table + '\n')
     print(perclass_dt.table)
-    print(colored(' A', 'cyan') + ': Actual Clas, ' + colored('P', 'green') + ': Predicted Class' + '\n\n')
+    print(colored(' A', 'cyan') + ': Actual Class, ' + colored('P', 'green') + ': Predicted Class' + '\n\n')
     
     
     with open(os.path.join('results', config['config_name'] + '.txt'), 'w') as f:
