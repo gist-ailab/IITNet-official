@@ -1,10 +1,8 @@
 # IITNet
 
-By Hogeon Seo, Seunghyeok Back, Seongju Lee, Deokhwan Park, Tae Kim, and Kyoobin Lee
+By *Hogeon Seo, *Seunghyeok Back, *Seongju Lee, Deokhwan Park, Tae Kim, and Kyoobin Lee (\*: Equal Contribution)
 
-This repo is the official implementation of "***Intra- and Inter-epoch Temporal Context Network (IITNet) using Sub-epoch Features for Automatic Sleep Scoring on Raw Single-channel EEG***".
-
-This work has been accepted for publication in [Biomedical Signal Processing and Control](https://www.journals.elsevier.com/biomedical-signal-processing-and-control).
+This repo is the official implementation of "***Intra- and Inter-epoch Temporal Context Network (IITNet) using Sub-epoch Features for Automatic Sleep Scoring on Raw Single-channel EEG***", Biomedical Signal Processing and Control 61 (2020): 102037. [[pdf]](https://www.sciencedirect.com/science/article/pii/S1746809420301932) 
 
 The architecture of IITNet:
 ![Model Architecture](./figures/IITNet.png)
