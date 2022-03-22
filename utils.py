@@ -13,7 +13,7 @@ from termcolor import colored
 _, term_width = os.popen('stty size', 'r').read().split()
 term_width = int(term_width)
 
-TOTAL_BAR_LENGTH = 45.
+TOTAL_BAR_LENGTH = 35.
 last_time = time.time()
 begin_time = last_time
 
@@ -216,9 +216,9 @@ def summarize_result(config, fold, y_true, y_pred):
     overall_dt = SingleTable(overall_data, colored('OVERALL RESULT', 'red'))
     perclass_dt = SingleTable(perclass_data, colored('PER-CLASS RESULT', 'red'))
     
-    print('[INFO] Evaluation result from fold 1 to {}\n'.format(fold))
-    print(overall_dt.table + '\n')
-    print(perclass_dt.table)
+    print('\n[INFO] Evaluation result from fold 1 to {}'.format(fold))
+    print('\n' + overall_dt.table)
+    print('\n' + perclass_dt.table)
     print(colored(' A', 'cyan') + ': Actual Class, ' + colored('P', 'green') + ': Predicted Class' + '\n\n')
     
     
